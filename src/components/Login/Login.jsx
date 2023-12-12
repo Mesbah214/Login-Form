@@ -1,52 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useReducer } from "react";
+import { emailReducer, passwordReducer } from "../../hooks/FormReducer";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
-
-const emailReducer = (state, action) => {
-  switch (action.type) {
-    case "on_change": {
-      return {
-        ...state,
-        value: action.value,
-        isValid: action.value.includes("@"),
-      };
-    }
-
-    case "on_blur": {
-      return {
-        ...state,
-        isValid: state.value.includes("@"),
-      };
-    }
-  }
-  return {
-    value: "",
-    isValid: false,
-  };
-};
-
-const passwordReducer = (state, action) => {
-  switch (action.type) {
-    case "on_change": {
-      return {
-        ...state,
-        value: action.value,
-        isValid: action.value.trim().length > 6,
-      };
-    }
-
-    case "on_blur": {
-      return {
-        ...state,
-        isValid: state.value.trim().length > 6,
-      };
-    }
-  }
-  return { value: "", isValid: false };
-};
 
 const Login = (props) => {
   const [emailState, emailDispatch] = useReducer(emailReducer, {
