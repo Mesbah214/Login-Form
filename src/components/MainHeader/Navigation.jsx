@@ -1,23 +1,28 @@
 /* eslint-disable react/prop-types */
-import classes from './Navigation.module.css';
+import { useContext } from "react";
+import AuthContext from "../../store/auth-context";
 
-const Navigation = (props) => {
+import classes from "./Navigation.module.css";
+
+const Navigation = () => {
+  const ctx = useContext(AuthContext);
+
   return (
     <nav className={classes.nav}>
       <ul>
-        {props.isLoggedIn && (
+        {ctx.isLoggedIn && (
           <li>
             <a href="/">Users</a>
           </li>
         )}
-        {props.isLoggedIn && (
+        {ctx.isLoggedIn && (
           <li>
             <a href="/">Admin</a>
           </li>
         )}
-        {props.isLoggedIn && (
+        {ctx.isLoggedIn && (
           <li>
-            <button onClick={props.onLogout}>Logout</button>
+            <button onClick={ctx.onLogout}>Logout</button>
           </li>
         )}
       </ul>

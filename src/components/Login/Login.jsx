@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 import { emailReducer, passwordReducer } from "../../hooks/FormReducer";
+import AuthContext from "../../store/auth-context";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 
 const Login = (props) => {
+  const loginCtx = useContext(AuthContext)
+
   const [emailState, emailDispatch] = useReducer(emailReducer, {
     value: "",
     isValid: null,
@@ -19,13 +22,18 @@ const Login = (props) => {
 
   const [formIsValid, setFormIsValid] = useState(false);
 
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+
   useEffect(() => {
-    console.log("EFFECT RUNNING");
+    const identifier = setTimeout(() => {
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
 
     return () => {
-      console.log("EFFECT CLEANUP");
+      clearTimeout(identifier);
     };
-  }, []);
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
     emailDispatch({
@@ -33,7 +41,7 @@ const Login = (props) => {
       value: event.target.value,
     });
 
-    setFormIsValid(emailState.isValid && passwordState.isValid);
+    // setFormIsValid(emailState.isValid && passwordState.isValid);
   };
 
   const passwordChangeHandler = (event) => {
@@ -42,7 +50,7 @@ const Login = (props) => {
       value: event.target.value,
     });
 
-    setFormIsValid(emailState.isValid && passwordState.isValid);
+    // setFormIsValid(emailState.isValid && passwordState.isValid);
   };
 
   const validateEmailHandler = () => {
@@ -55,7 +63,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.value);
+    loginCtx.onLogin(emailState.value, passwordState.value);
   };
 
   return (
