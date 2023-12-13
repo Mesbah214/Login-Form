@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import Navigation from "./Navigation";
 import classes from "./MainHeader.module.css";
 

@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-
-import classes from './Card.module.css';
+import PropTypes from "prop-types";
+import classes from "./Card.module.css";
 
 const Card = (props) => {
   return (
@@ -9,3 +8,8 @@ const Card = (props) => {
 };
 
 export default Card;
+
+Card.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.element,
+};

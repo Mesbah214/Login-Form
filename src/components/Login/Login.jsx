@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect, useReducer, useContext, useRef } from "react";
 import { emailReducer, passwordReducer } from "../../hooks/FormReducer";
 import AuthContext from "../../store/auth-context";
